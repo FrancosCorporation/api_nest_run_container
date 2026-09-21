@@ -6,6 +6,6 @@ RUN npm install -g @nestjs/cli
 
 USER node
 
-WORKDIR C:\Users\Rodolfo\git\nest-api\.docker
+WORKDIR /home/node/app
 
-COPY . .
+COPY --chown=node:node . .

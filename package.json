@@ -1,10 +1,10 @@
 {
-  "name": "nest-api",
+  "name": "api-nest-run-container",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "API NestJS de exemplo, pronta para rodar em container Docker",
+  "author": "Rodolfo Franco (FrancosCorporation)",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",

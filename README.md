@@ -1,73 +1,72 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# api-nest-run-container
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API **NestJS** pronta para rodar em container: `Dockerfile`, `docker-compose`
+com hot-reload e o setup completo de qualidade do framework (ESLint, Prettier,
+Jest).
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+![NestJS](https://img.shields.io/badge/NestJS-7-E0234E?style=flat-square&logo=nestjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-4-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-Jest-C21325?style=flat-square&logo=jest)
+![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
+![Status](https://img.shields.io/badge/status-estudo-lightgrey?style=flat-square)
 
-## Description
+## Sobre
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+**Projeto de estudo** de 2022 para praticar a criação de APIs com NestJS e,
+principalmente, o empacotamento da aplicação em Docker. O repositório sobe uma
+API mínima (controller/service de exemplo) com testes unitários e e2e, e um
+ambiente containerizado com script de entrada (`entrypoint.sh`).
 
-## Installation
+## Funcionalidades
 
-```bash
-$ npm install
-```
+Comprovadas pelo código:
 
-## Running the app
+- **API NestJS** com `AppController`/`AppService` de exemplo
+  (`GET /` responde `Hello World!`).
+- **Containerização**: `Dockerfile` baseado em `node:14-alpine` com
+  `@nestjs/cli` instalado e script de entrada `/.docker/entrypoint.sh`.
+- **docker-compose** para desenvolvimento.
+- **Qualidade**: ESLint + Prettier configurados; testes unitários
+  (`src/app.controller.spec.ts`) e e2e (`test/app.e2e-spec.ts`) com Jest.
 
-```bash
-# development
-$ npm run start
+## Como rodar
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
+### Com Docker (recomendado)
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+docker compose up --build
 ```
 
-## Support
+### Localmente
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+npm install
+npm run start:dev     # desenvolvimento (watch)
+npm run start:prod    # produção (node dist/main)
+```
 
-## Stay in touch
+### Testes e lint
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+npm test              # testes unitários
+npm run test:e2e      # testes end-to-end
+npm run lint          # ESLint com --fix
+npm run format        # Prettier
+```
 
-## License
+A API fica disponível em `http://localhost:3000`.
 
-Nest is [MIT licensed](LICENSE).
+## Estrutura do projeto
+
+```
+.docker/            # entrypoint do container
+src/                # app.module, app.controller, app.service
+test/               # testes e2e (Jest + supertest)
+Dockerfile          # imagem da aplicação
+docker-compose.yaml # ambiente de desenvolvimento
+```
+
+## Licença
+
+MIT — veja [LICENSE](LICENSE).
