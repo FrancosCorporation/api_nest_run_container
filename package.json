@@ -1,7 +1,7 @@
 {
   "name": "api-nest-run-container",
   "version": "0.0.1",
-  "description": "API NestJS de exemplo, pronta para rodar em container Docker",
+  "description": "Scaffold de API NestJS para desenvolvimento e container local.",
   "author": "Rodolfo Franco (FrancosCorporation)",
   "private": true,
   "license": "MIT",
@@ -12,8 +12,8 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "start:prod": "node dist/main.js",
+    "lint": "eslint \"{src,test}/**/*.ts\"",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -21,34 +21,32 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "^7.6.15",
-    "@nestjs/core": "^7.6.15",
-    "@nestjs/platform-express": "^7.6.15",
-    "reflect-metadata": "^0.1.13",
-    "rimraf": "^3.0.2",
-    "rxjs": "^6.6.6"
+    "@nestjs/common": "12.1.2",
+    "@nestjs/core": "12.1.2",
+    "@nestjs/platform-express": "12.1.2",
+    "@nestjs/throttler": "6.7.1",
+    "reflect-metadata": "0.2.2",
+    "rxjs": "7.8.2"
   },
   "devDependencies": {
-    "@nestjs/cli": "^7.6.0",
-    "@nestjs/schematics": "^7.3.0",
-    "@nestjs/testing": "^7.6.15",
-    "@types/express": "^4.17.11",
-    "@types/jest": "^26.0.22",
-    "@types/node": "^14.14.36",
-    "@types/supertest": "^2.0.10",
-    "@typescript-eslint/eslint-plugin": "^4.19.0",
-    "@typescript-eslint/parser": "^4.19.0",
-    "eslint": "^7.22.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "jest": "^26.6.3",
-    "prettier": "^2.2.1",
-    "supertest": "^6.1.3",
-    "ts-jest": "^26.5.4",
-    "ts-loader": "^8.0.18",
-    "ts-node": "^9.1.1",
-    "tsconfig-paths": "^3.9.0",
-    "typescript": "^4.2.3"
+    "@nestjs/cli": "12.0.8",
+    "@nestjs/schematics": "12.0.6",
+    "@nestjs/testing": "12.1.2",
+    "@types/express": "5.0.6",
+    "@types/jest": "30.0.0",
+    "@types/node": "24.19.2",
+    "@types/supertest": "7.2.1",
+    "eslint": "10.12.0",
+    "jest": "30.5.2",
+    "prettier": "3.9.10",
+    "rimraf": "6.1.3",
+    "supertest": "7.3.1",
+    "ts-jest": "29.4.14",
+    "ts-loader": "9.6.2",
+    "ts-node": "10.9.2",
+    "tsconfig-paths": "4.2.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.1"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -66,5 +64,9 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "engines": {
+    "node": "^24.15.0",
+    "npm": ">=10"
   }
 }

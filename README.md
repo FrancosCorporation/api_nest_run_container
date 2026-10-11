@@ -1,72 +1,49 @@
 # api-nest-run-container
 
-API **NestJS** pronta para rodar em container: `Dockerfile`, `docker-compose`
-com hot-reload e o setup completo de qualidade do framework (ESLint, Prettier,
-Jest).
+Scaffold de estudo para uma API NestJS 12 em Node.js 24 LTS. O repositório não contém regras de negócio ou autenticação.
 
-![NestJS](https://img.shields.io/badge/NestJS-7-E0234E?style=flat-square&logo=nestjs&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-4-3178C6?style=flat-square&logo=typescript&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-Jest-C21325?style=flat-square&logo=jest)
-![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
-![Status](https://img.shields.io/badge/status-estudo-lightgrey?style=flat-square)
+## Rotas
 
-## Sobre
+- `GET /` mantém a resposta de exemplo `Hello World!`.
+- `GET /health` responde `{"status":"ok"}` e não consome a cota do limitador.
 
-**Projeto de estudo** de 2022 para praticar a criação de APIs com NestJS e,
-principalmente, o empacotamento da aplicação em Docker. O repositório sobe uma
-API mínima (controller/service de exemplo) com testes unitários e e2e, e um
-ambiente containerizado com script de entrada (`entrypoint.sh`).
+As respostas recebem cabeçalhos de segurança do Nest. As demais rotas têm limite padrão de 120 requisições por minuto e por processo. CORS fica desabilitado enquanto não houver uma origem de frontend definida. Em instalações com várias réplicas, configure um armazenamento compartilhado para o limitador.
 
-## Funcionalidades
+## Requisitos
 
-Comprovadas pelo código:
+- Node.js 24.15 ou mais recente na linha 24
+- npm 10 ou mais recente
+- Docker Compose (opcional)
 
-- **API NestJS** com `AppController`/`AppService` de exemplo
-  (`GET /` responde `Hello World!`).
-- **Containerização**: `Dockerfile` baseado em `node:14-alpine` com
-  `@nestjs/cli` instalado e script de entrada `/.docker/entrypoint.sh`.
-- **docker-compose** para desenvolvimento.
-- **Qualidade**: ESLint + Prettier configurados; testes unitários
-  (`src/app.controller.spec.ts`) e e2e (`test/app.e2e-spec.ts`) com Jest.
-
-## Como rodar
-
-### Com Docker (recomendado)
+## Rodar localmente
 
 ```bash
-docker compose up --build
+npm ci
+npm run start:dev
 ```
 
-### Localmente
+A API escuta em `127.0.0.1:3000` por padrão. `PORT` e `HOST` podem mudar a porta e o endereço.
+
+## Rodar em container
 
 ```bash
-npm install
-npm run start:dev     # desenvolvimento (watch)
-npm run start:prod    # produção (node dist/main)
+docker compose up --build --detach
+curl http://localhost:3000/health
 ```
 
-### Testes e lint
+O Compose publica a porta apenas em loopback. A imagem usa etapas separadas de build e runtime, instala dependências do lockfile sem fallback, executa como usuário sem privilégios e inclui healthcheck.
+
+## Build e qualidade
 
 ```bash
-npm test              # testes unitários
-npm run test:e2e      # testes end-to-end
-npm run lint          # ESLint com --fix
-npm run format        # Prettier
+npm run build
+npm run lint
+npm test
+npm run test:e2e
 ```
 
-A API fica disponível em `http://localhost:3000`.
+O CI executa `npm ci`, build, auditoria de dependências de alta gravidade e build da imagem. Os testes existentes continuam disponíveis nos comandos acima.
 
-## Estrutura do projeto
+## Segurança
 
-```
-.docker/            # entrypoint do container
-src/                # app.module, app.controller, app.service
-test/               # testes e2e (Jest + supertest)
-Dockerfile          # imagem da aplicação
-docker-compose.yaml # ambiente de desenvolvimento
-```
-
-## Licença
-
-MIT — veja [LICENSE](LICENSE).
+Consulte [SECURITY.md](SECURITY.md) para orientações de reporte e configuração.
